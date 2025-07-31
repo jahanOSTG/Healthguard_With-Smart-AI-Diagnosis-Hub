@@ -1,0 +1,109 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.image-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-side img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 12px;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+  50% {
+    transform: translateY(-15px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+  }
+}
+
+.login-box {
+  flex: 1;
+  max-width: 400px;
+  background: rgba(30, 144, 255, 0.15); /* DodgerBlue tint with transparency */
+  padding: 40px;
+  border-radius: 20px;
+  color: #0d1f3c; /* Dark blue text */
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(30, 144, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(30, 144, 255, 0.4);
+
+  animation: floatSlow 6s ease-in-out infinite;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.login-box:hover {
+  box-shadow: 0 15px 40px 0 rgba(30, 144, 255, 0.7);
+  border-color: rgba(30, 144, 255, 0.7);
+}
+
+/* Updated floating animation with subtle color glow */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 8px 32px 0 rgba(30, 144, 255, 0.4);
+  }
+  50% {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 60px 0 rgba(30, 144, 255, 0.7);
+  }
+}
+
+/* Button styling - matching color scheme */
+.btn {
+  background: linear-gradient(45deg, #1e90ff, #00bfff);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(30, 144, 255, 0.4);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(45deg, #00bfff, #1e90ff);
+  box-shadow: 0 8px 30px rgba(30, 144, 255, 0.7);
+}
+
+.btn.secondary {
+  background: linear-gradient(45deg, #6c757d, #495057);
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+}
+
+.btn.secondary:hover {
+  background: linear-gradient(45deg, #495057, #343a40);
+  box-shadow: 0 8px 30px rgba(73, 80, 87, 0.7);
+}
+
+/* Error and alert */
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.alert {
+  background-color: rgba(255, 107, 107, 0.3);
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  color: #b71c1c;
+  font-weight: 600;
+}
