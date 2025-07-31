@@ -1,0 +1,55 @@
+{% extends 'app.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+<div class="login-container">
+  <!-- Left Side Image -->
+  <div class="image-side">
+    <img src="{{ url_for('static', filename='img/1.png') }}" alt="Login Image">
+  </div>
+
+  <!-- Right Side Login Form -->
+  <div class="login-box">
+    <h2>Login</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/login" method="POST">
+      {{ form.hidden_tag() }}
+
+      <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email(class="form-control") }}
+        {% for error in form.email.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password(class="form-control") }}
+        {% for error in form.password.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="buttons">
+        {{ form.submit(class="btn") }}
+        <a href="/register" class="btn secondary">Register</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

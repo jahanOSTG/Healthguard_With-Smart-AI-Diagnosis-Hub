@@ -1,0 +1,22 @@
+{% extends 'app.html' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index_style.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="home-wrapper">
+    <div class="overlay">
+        <div class="welcome-box">
+            <h1>Welcome to Janie Medical Center</h1>
+            <p>Your health is our priority. Explore our services now.</p>
+            <div class="buttons">
+                <a href="{{ url_for('login') }}" class="btn">Sign In</a>
+                <a href="{{ url_for('register') }}" class="btn">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
