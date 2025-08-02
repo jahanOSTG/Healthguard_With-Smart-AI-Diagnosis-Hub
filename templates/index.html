@@ -1,11 +1,9 @@
 {% extends 'app.html' %}
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index_style.css') }}">
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
 {% block content %}
-
 <div class="home-wrapper">
     <div class="overlay">
         <div class="welcome-box">
@@ -18,5 +16,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
