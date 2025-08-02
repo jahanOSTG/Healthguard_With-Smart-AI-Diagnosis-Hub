@@ -1,48 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f0f4f8;
+/* Outer wrapper: horizontal flex, centered */
+.register-layout {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Use min-height instead of full height to allow scrolling if needed */
-}
-
-.container {
-  background-color: #1cacbc;
-  padding: 32px 28px;
-  border-radius: 14px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 420px;
+  gap: 10px;
+  height: 100vh;
+  padding: 40px 20px;
+  background:rgb(254, 253, 253);
   box-sizing: border-box;
-  animation: fadeInUp 0.5s ease;
+  font-family: 'Inter', sans-serif;
+  
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Form container with 3D card vibe */
+.container {
+  background: #b5d0d7;
+  padding: 40px 36px;
+  border-radius: 18px;
+  width: 420px;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.12),
+    0 15px 40px rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+    backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(30, 144, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(30, 144, 255, 0.4);
 }
 
+.container:hover {
+  transform: translateY(-8px) translateZ(20px) scale(1.02);
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.18),
+    0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* Headline */
 h2 {
-  margin-bottom: 20px;
-  color: #0a3d62;
-  font-size: 24px;
-  font-weight: 600;
+  color: #0c3239;
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 30px;
   text-align: center;
-  border-bottom: 1px solid #dce3ea;
-  padding-bottom: 10px;
+  letter-spacing: 1px;
 }
 
+/* Form fields styling */
 .form-group {
   margin-bottom: 16px;
 }
@@ -80,6 +85,7 @@ label {
   list-style: none;
 }
 
+/* Buttons */
 .btn {
   display: inline-block;
   width: 48%;
@@ -115,19 +121,53 @@ label {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .container {
-    padding: 24px 20px;
-    max-width: 95%;
+/* Image container with 3D vibe */
+.image-side {
+  width: 420px;
+  max-width: 90vw;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.18);
+  transform-style: preserve-3d;
+  perspective: 900px;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+  background: rgb(8, 201, 201);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-side img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+  transform: rotateY(-6deg) rotateX(3deg);
+  transition: transform 0.5s ease;
+  backface-visibility: hidden;
+}
+
+.image-side:hover {
+  transform: translateZ(20px) rotateY(0deg) rotateX(0deg) scale(1.03);
+}
+
+.image-side:hover img {
+  transform: rotateY(0deg) rotateX(0deg);
+}
+
+/* Responsive: stack vertically on smaller screens */
+@media (max-width: 900px) {
+  .register-layout {
+    flex-direction: column;
+    height: auto;
   }
 
-  .btn {
+  .container,
+  .image-side {
     width: 100%;
-    margin-top: 10px;
-  }
-
-  .btn-secondary {
-    margin-left: 0;
+    max-width: 420px;
+    margin-bottom: 30px;
   }
 }
