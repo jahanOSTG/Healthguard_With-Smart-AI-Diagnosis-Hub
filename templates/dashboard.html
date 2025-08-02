@@ -1,18 +1,56 @@
 {% extends 'app.html' %}
 {% block content %}
 
+<!-- First Navbar with Features -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Janie Medical Center</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar" aria-controls="featureNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="featureNavbar">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Health Tips</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Doctors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Services</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<div class="container">
+<!-- Second Navbar with Opening & Closing Time -->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <span class="navbar-text text-white">
+      🕒 Opening Time: 9:00 AM | Closing Time: 6:00 PM
+    </span>
+  </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="container mt-4">
   <h2>Welcome to the Dashboard</h2>
 
-    {% if user %}
-        <p>user information</p>
-        <ul>
-            <li>Name : {{ user[1] }}</li>
-            <li>Email : {{ user[2] }}</li>
-        </ul>
-        <a href="/logout" class="btn btn-dark">Logout</a>
-    {% endif %}
+  {% if user %}
+      <p>User Information:</p>
+      <ul class="list-group">
+          <li class="list-group-item"><strong>Name:</strong> {{ user[1] }}</li>
+          <li class="list-group-item"><strong>Email:</strong> {{ user[2] }}</li>
+      </ul>
+      <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+  {% else %}
+      <p>No user data found.</p>
+  {% endif %}
 </div>
 
 {% endblock %}
