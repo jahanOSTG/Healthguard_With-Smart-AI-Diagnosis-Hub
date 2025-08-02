@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Use min-height instead of full height to allow scrolling if needed */
+}
+
+.container {
+  background-color: #1cacbc;
+  padding: 32px 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #0a3d62;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #dce3ea;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #34495e;
+  font-size: 14px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #dcdde1;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0a3d62;
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(10, 61, 98, 0.15);
+}
+
+.text-danger {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #c0392b;
+  padding-left: 4px;
+  list-style: none;
+}
+
+.btn {
+  display: inline-block;
+  width: 48%;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-dark {
+  background-color: #0a3d62;
+  color: #fff;
+}
+
+.btn-dark:hover {
+  background-color: #093251;
+  box-shadow: 0 4px 12px rgba(10, 61, 98, 0.3);
+}
+
+.btn-secondary {
+  background-color: #dfe6e9;
+  color: #2f3640;
+  margin-left: 4%;
+}
+
+.btn-secondary:hover {
+  background-color: #b2bec3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 24px 20px;
+    max-width: 95%;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn-secondary {
+    margin-left: 0;
+  }
+}
