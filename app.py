@@ -74,15 +74,15 @@ def login():
         cursor.close()
         if user and bcrypt.checkpw(password.encode('utf-8'), user[3].encode('utf-8')):
             session['user_id'] = user[0]
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('dashboard1'))
         else:
             flash("Login failed. Please check your email and password")
             return redirect(url_for('login'))
 
     return render_template('login.html',form=form)
 
-@app.route('/dashboard')
-def dashboard():
+@app.route('/dashboard1')
+def dashboard1():
     if 'user_id' in session:
         user_id = session['user_id']
 
@@ -92,7 +92,7 @@ def dashboard():
         cursor.close()
 
         if user:
-           return render_template('dashboard.html', user=user)
+           return render_template('dashboard1.html', user=user)
 
             
     # return redirect(url_for('login'))
@@ -102,6 +102,16 @@ def logout():
     session.pop('user_id', None)
     flash("You have been logged out successfully.")
     return redirect(url_for('login'))
+
+
+@app.route('/dashboard')
+def dashboard():
+    # Check if user is logged in
+    if 'user_id' not in session:
+        flash("Please log in first.")
+        return redirect(url_for('login'))  # ✅ Don't redirect to dashboard again
+
+    return render_template('dashboard.html')  # ✅ Open the page normally
 
 
 
