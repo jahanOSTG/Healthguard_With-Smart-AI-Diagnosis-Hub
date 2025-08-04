@@ -1,0 +1,79 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #6f92b6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar Styling */
+.navbar-dark {
+  background-color: #343a40 !important;
+}
+
+.navbar-light {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.navbar-light .nav-link {
+  font-weight: 500;
+  color: #333 !important;
+  margin-left: 20px;
+  transition: color 0.3s;
+}
+
+.navbar-light .nav-link:hover {
+  color: #007bff !important;
+}
+
+/* Carousel */
+.carousel-inner img {
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Sections */
+section {
+  padding: 60px 0;
+}
+
+.about-section,
+.facilities-section,
+.tips-section {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+}
+
+.section-title {
+  color: #181b1f;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.facility-img {
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.list-group-item {
+  border: none;
+  padding-left: 0;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+.health-tips ul {
+  padding-left: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .facility-img {
+    margin-bottom: 20px;
+  }
+}
