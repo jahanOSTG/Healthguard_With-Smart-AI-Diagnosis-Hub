@@ -1,46 +1,148 @@
 {% extends 'app.html' %}
+{% block extra_css %}
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #eef2f5;
+    padding-top: 140px; /* space for 2 fixed navbars */
+  }
+
+  /* Top Fixed Time Navbar */
+  .navbar-dark {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+    background-color: #f4c430 !important; /* smart yellow */
+    color: #212529;
+  }
+
+  .navbar-dark .navbar-text {
+    font-weight: 600;
+    color: #212529 !important;
+  }
+
+  /* Second Navbar (Main Navigation) */
+  .navbar-light {
+    position: fixed;
+    top: 40px;
+    width: 100%;
+    z-index: 1040;
+    background-color: #0f4c75 !important; /* smart deep blue */
+    border-bottom: 2px solid #ccc;
+  }
+
+  .navbar-light .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ffffff !important;
+  }
+
+  .navbar-light .nav-link {
+    color: #f1f1f1 !important;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+
+  .navbar-light .nav-link:hover {
+    color: #ffd700 !important;
+  }
+
+  .container-main {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #9ECAD6;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    color: #0f4c75;
+    margin-bottom: 20px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 6px 0;
+    font-size: 16px;
+  }
+
+  .btn {
+    margin-right: 10px;
+    transition: 0.3s ease;
+  }
+
+  .btn-outline-primary {
+    border-color: #0f4c75;
+    color: #0f4c75;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #0f4c75;
+    color: #fff;
+  }
+
+  .btn-outline-dark:hover {
+    background-color: #343a40;
+    color: #fff;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
 
-<!-- First Navbar with Features -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- Fixed Time Info Navbar -->
+<nav class="navbar navbar-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">FeatureName</a>
+    <span class="navbar-text">
+      🕒 Opening Time: 9:00 AM &nbsp;&nbsp;|&nbsp;&nbsp; 📴 Closing Time: 6:00 PM
+    </span>
+  </div>
+</nav>
+
+<!-- Main Navbar with Features -->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand">🏥 Luvia Medical Center</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar" aria-controls="featureNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="featureNavbar">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#">Feature 1</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Feature 2</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Feature 3</a></li>
-        <!-- Add more features as needed -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Doctors</a>
+        </li>
+        <!-- Add more features -->
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Second Navbar Always Visible: Opening and Closing Time -->
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container">
-    <span class="navbar-text text-white">
-      Opening Time: 9:00 AM &nbsp;&nbsp;|&nbsp;&nbsp; Closing Time: 6:00 PM
-    </span>
-  </div>
-</nav>
-
-<!-- Main Content -->
+<!-- Main Content Area -->
 <div class="container mt-4">
-  <h2>Welcome to the Dashboard</h2>
+  <div class="container-main">
+    <h2>Welcome to the Dashboard</h2>
 
-  {% if user %}
-      <p>User information</p>
+    {% if user %}
+      <p><strong>User Information</strong></p>
       <ul>
-          <li>Name : {{ user[1] }}</li>
-          <li>Email : {{ user[2] }}</li>
+          <li><strong>Name:</strong> {{ user[1] }}</li>
+          <li><strong>Email:</strong> {{ user[2] }}</li>
       </ul>
-      <a href="/logout" class="btn btn-dark">Logout</a>
-       <a href="/dashboard" class="btn btn-dark">Visit Dashboard</a>
-  {% endif %}
+      <a href="/logout" class="btn btn-outline-dark">Logout</a>
+      <a href="/dashboard" class="btn btn-outline-primary">Visit Dashboard</a>
+    {% else %}
+      <p>No user information available.</p>
+    {% endif %}
+  </div>
 </div>
 
 {% endblock %}

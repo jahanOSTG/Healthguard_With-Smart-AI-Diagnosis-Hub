@@ -1,56 +1,104 @@
 {% extends 'app.html' %}
+{% block extra_css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% endblock %}
+
 {% block content %}
 
-<!-- First Navbar with Features -->
+<!-- Navbar 1: Feature Links -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">Janie Medical Center</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar" aria-controls="featureNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">🏥 Janie Medical Center</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
     <div class="collapse navbar-collapse" id="featureNavbar">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Appointments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Health Tips</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Doctors</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Appointments</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Health Tips</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+         <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Second Navbar with Opening & Closing Time -->
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container">
-    <span class="navbar-text text-white">
-      🕒 Opening Time: 9:00 AM | Closing Time: 6:00 PM
-    </span>
-  </div>
-</nav>
 
-<!-- Dashboard Content -->
+<!-- Carousel -->
 <div class="container mt-4">
-  <h2>Welcome to the Dashboard</h2>
-
-  {% if user %}
-      <p>User Information:</p>
-      <ul class="list-group">
-          <li class="list-group-item"><strong>Name:</strong> {{ user[1] }}</li>
-          <li class="list-group-item"><strong>Email:</strong> {{ user[2] }}</li>
-      </ul>
-      <a href="/logout" class="btn btn-danger mt-3">Logout</a>
-  {% else %}
-      <p>No user data found.</p>
-  {% endif %}
+  <div id="hospitalCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='img/teeth.jpg') }}" class="d-block w-100" alt="Hospital Image 1">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/e.png') }}" class="d-block w-100" alt="Hospital Image 2">
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='img/1.png') }}" class="d-block w-100" alt="Hospital Image 3">
+    
+  </div>
 </div>
 
+<!-- Dashboard Info -->
+<div class="container mt-5">
+  {% if user %}
+    <div class="about-section">
+      <h2 class="section-title">Welcome, {{ user[1] }}</h2>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Email:</strong> {{ user[2] }}</li>
+      </ul>
+      <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+    </div>
+  {% endif %}
+
+  <!-- About Us -->
+  <section class="about-section">
+    <h2 class="section-title">About Janie Medical Center</h2>
+    <p>
+      Janie Medical Center is committed to providing world-class healthcare with compassion, care, and advanced technology. 
+      We serve thousands of patients every year with dedication and professionalism, guided by experienced doctors and a caring staff.
+    </p>
+  </section>
+
+  <!-- Facilities -->
+  <section class="facilities-section">
+    <h2 class="section-title">Our Facilities</h2>
+    <p>We constantly invest in high-end equipment</p>
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <img src="{{ url_for('static', filename='img/d3.avif') }}" alt="Facility" class="facility-img">
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group">
+          <li class="list-group-item">🛏️ 24/7 Emergency & ICU</li>
+          <li class="list-group-item">💉 Modern Diagnostic Lab</li>
+          <li class="list-group-item">🧑‍⚕️ Experienced Doctors & Nurses</li>
+          <li class="list-group-item">🩺 Free Health Checkup Camps</li>
+          <li class="list-group-item">📋 Online Appointment & Report</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Health Tips -->
+  <section class="tips-section">
+    <h2 class="section-title">Health Tips</h2>
+    <div class="health-tips">
+      <ul>
+        <li>💧 Drink at least 8 glasses of water a day</li>
+        <li>🥗 Eat fresh fruits and vegetables regularly</li>
+        <li>🏃 Exercise for at least 30 minutes daily</li>
+        <li>🧘 Practice stress-reducing activities like yoga or meditation</li>
+        <li>🛏️ Get 7-8 hours of quality sleep</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+{% include 'footer.html' %}
 {% endblock %}
