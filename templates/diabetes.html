@@ -1,0 +1,39 @@
+{% extends 'app.html' %}
+
+{% block title %}Diabetes Prediction{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='diabetes.css') }}">
+{% endblock %}
+
+{% block content %}
+  <h2>Diabetes Prediction Form</h2>
+  <form method="POST" action="/predict_diabetes">
+    <label>Pregnancies:</label>
+    <input type="number" name="pregnancies" required><br>
+
+    <label>Glucose:</label>
+    <input type="number" name="glucose" required><br>
+
+    <label>Blood Pressure:</label>
+    <input type="number" name="bloodpressure" required><br>
+
+    <label>Skin Thickness:</label>
+    <input type="number" name="skinthickness" required><br>
+
+    <label>Insulin:</label>
+    <input type="number" name="insulin" required><br>
+
+    <label>BMI:</label>
+    <input type="number" step="any" name="bmi" required><br>
+
+    <label>Diabetes Pedigree Function:</label>
+    <input type="number" step="any" name="dpf" required><br>
+
+    <label>Age:</label>
+    <input type="number" name="age" required><br><br>
+
+    <button type="submit">Predict</button>
+  </form>
+{% endblock %}
+

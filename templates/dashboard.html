@@ -22,6 +22,18 @@
         <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="bi bi-heart-pulse-fill me-1"></i> Prediction Tools
+</a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Cancer</a></li>
+    <li><a class="dropdown-item" href="/diabetes">Diabetes</a></li>
+    <li><a class="dropdown-item" href="#">Heart Disease</a></li>
+    <li><a class="dropdown-item" href="#">COVID-19</a></li>
+  </ul>
+</li>
+
       </ul>
     </div>
   </div>

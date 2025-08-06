@@ -5,8 +5,21 @@
   .contact-header {
     background: linear-gradient(135deg, #1d3557, #457b9d);
     color: white;
-    padding: 60px 0;
+    padding: 60px 0 40px;
     text-align: center;
+    position: relative;
+  }
+
+  .contact-header img.header-image {
+    max-width: 260px;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .contact-header img.header-image:hover {
+    transform: scale(1.05);
   }
 
   .contact-form {
@@ -14,6 +27,18 @@
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.6s ease-in-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .form-control:focus {
@@ -26,6 +51,7 @@
     padding-bottom: 56.25%;
     position: relative;
     height: 0;
+    margin-top: 20px;
   }
 
   .map-responsive iframe {
@@ -36,18 +62,37 @@
     position: absolute;
     border: 0;
   }
+
+  .contact-info-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+
+  .contact-info-box h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
 </style>
 
+<!-- Contact Header -->
 <div class="contact-header">
   <h1>Contact Us</h1>
   <p>We'd love to hear from you</p>
+  <img src="{{ url_for('static', filename='img/4.avif') }}" 
+       alt="Contact Banner" 
+       class="header-image">
 </div>
 
+<!-- Main Content -->
 <div class="container my-5">
   <div class="row g-4">
+    <!-- Contact Form -->
     <div class="col-md-6">
       <div class="contact-form">
-        <!-- Flash Message Section -->
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
@@ -56,7 +101,6 @@
           {% endif %}
         {% endwith %}
 
-        <!-- Form -->
         <form method="POST" action="{{ url_for('contact') }}">
           <div class="mb-3">
             <label for="name" class="form-label">Your Name</label>
@@ -73,8 +117,16 @@
           <button type="submit" class="btn btn-primary w-100">Send Message</button>
         </form>
       </div>
+
+      <div class="contact-info-box mt-4">
+        <h5>Reach Us At</h5>
+        <p><strong>Email:</strong> support@example.com</p>
+        <p><strong>Phone:</strong> +880-123-456-7890</p>
+        <p><strong>Address:</strong> 123 Gulshan Avenue, Dhaka, Bangladesh</p>
+      </div>
     </div>
 
+    <!-- Google Map -->
     <div class="col-md-6">
       <div class="map-responsive">
         <iframe
