@@ -1,0 +1,107 @@
+{% extends 'app.html' %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="report-wrapper">
+  <h2>📊 Prediction Report</h2>
+  <ul>
+    <li><strong>Pregnancies:</strong> {{ data.pregnancies }}</li>
+    <li><strong>Glucose:</strong> {{ data.glucose }}</li>
+    <li><strong>Blood Pressure:</strong> {{ data.bloodpressure }}</li>
+    <li><strong>Skin Thickness:</strong> {{ data.skinthickness }}</li>
+    <li><strong>Insulin:</strong> {{ data.insulin }}</li>
+    <li><strong>BMI:</strong> {{ data.bmi }}</li>
+    <li><strong>Diabetes Pedigree Function:</strong> {{ data.dpf }}</li>
+    <li><strong>Age:</strong> {{ data.age }}</li>
+    <li><strong>Result:</strong> <span style="color: #e63946; font-weight: bold;">{{ data.result }}</span></li>
+  </ul>
+</div>
+
+<style>
+    /* report.css */
+
+body {
+  background: linear-gradient(135deg, #eb9674 0%, #ACB6E5 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.report-wrapper {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 480px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #1d3557;
+  text-align: left;
+}
+
+.report-wrapper h2 {
+  font-weight: 700;
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #264653;
+}
+
+.report-wrapper ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.report-wrapper ul li {
+  font-size: 17px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-wrapper ul li strong {
+  font-weight: 700;
+  color: #457b9d;
+}
+
+.report-wrapper ul li:last-child {
+  border-bottom: none;
+  font-size: 18px;
+  color: #e63946;
+  font-weight: 900;
+  justify-content: center;
+  text-align: center;
+}
+
+.report-wrapper ul li:last-child span {
+  font-weight: 900;
+  color: #e63946;
+}
+
+@media (max-width: 500px) {
+  .report-wrapper {
+    padding: 20px 25px;
+    max-width: 100%;
+  }
+
+  .report-wrapper h2 {
+    font-size: 24px;
+  }
+
+  .report-wrapper ul li {
+    font-size: 16px;
+  }
+}
+<\style>
+{% endblock %}

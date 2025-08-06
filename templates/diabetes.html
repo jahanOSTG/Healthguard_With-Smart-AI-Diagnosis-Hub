@@ -1,39 +1,85 @@
 {% extends 'app.html' %}
 
-{% block title %}Diabetes Prediction{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='diabetes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/diabetes.css') }}">
 {% endblock %}
 
 {% block content %}
-  <h2>Diabetes Prediction Form</h2>
-  <form method="POST" action="/predict_diabetes">
-    <label>Pregnancies:</label>
-    <input type="number" name="pregnancies" required><br>
 
-    <label>Glucose:</label>
-    <input type="number" name="glucose" required><br>
+<!-- Flex layout to align form and report button -->
+<div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
 
-    <label>Blood Pressure:</label>
-    <input type="number" name="bloodpressure" required><br>
+  <!-- 📝 Show Report Button - Only Visible After Prediction -->
+  {% if prediction_text %}
+  <div style="margin: 20px; padding: 20px;">
+    <form method="POST" action="/show_diabetes_report">
+      <input type="hidden" name="pregnancies" value="{{ request.form.pregnancies }}">
+      <input type="hidden" name="glucose" value="{{ request.form.glucose }}">
+      <input type="hidden" name="bloodpressure" value="{{ request.form.bloodpressure }}">
+      <input type="hidden" name="skinthickness" value="{{ request.form.skinthickness }}">
+      <input type="hidden" name="insulin" value="{{ request.form.insulin }}">
+      <input type="hidden" name="bmi" value="{{ request.form.bmi }}">
+      <input type="hidden" name="dpf" value="{{ request.form.dpf }}">
+      <input type="hidden" name="age" value="{{ request.form.age }}">
+      <input type="hidden" name="result" value="{{ prediction_text }}">
+      <button type="submit" class="btn-submit" style="padding: 10px 20px;">📋 Show Report</button>
+    </form>
+  </div>
+  {% endif %}
 
-    <label>Skin Thickness:</label>
-    <input type="number" name="skinthickness" required><br>
+  <!-- 🩺 Prediction Form -->
+  <div class="form-wrapper">
+    <h2>🩺 Diabetes Prediction Form</h2>
+    <form method="POST" action="/predict_diabetes" class="prediction-form">
 
-    <label>Insulin:</label>
-    <input type="number" name="insulin" required><br>
+      <div class="input-group">
+        <label for="pregnancies">Pregnancies</label>
+        <input type="number" id="pregnancies" name="pregnancies" required min="0" max="20" placeholder="e.g. 2">
+      </div>
 
-    <label>BMI:</label>
-    <input type="number" step="any" name="bmi" required><br>
+      <div class="input-group">
+        <label for="glucose">Glucose</label>
+        <input type="number" id="glucose" name="glucose" required min="0" max="300" placeholder="e.g. 120">
+      </div>
 
-    <label>Diabetes Pedigree Function:</label>
-    <input type="number" step="any" name="dpf" required><br>
+      <div class="input-group">
+        <label for="bloodpressure">Blood Pressure</label>
+        <input type="number" id="bloodpressure" name="bloodpressure" required min="0" max="150" placeholder="e.g. 70">
+      </div>
 
-    <label>Age:</label>
-    <input type="number" name="age" required><br><br>
+      <div class="input-group">
+        <label for="skinthickness">Skin Thickness</label>
+        <input type="number" id="skinthickness" name="skinthickness" required min="0" max="100" placeholder="e.g. 20">
+      </div>
 
-    <button type="submit">Predict</button>
-  </form>
+      <div class="input-group">
+        <label for="insulin">Insulin</label>
+        <input type="number" id="insulin" name="insulin" required min="0" max="900" placeholder="e.g. 100">
+      </div>
+
+      <div class="input-group">
+        <label for="bmi">BMI</label>
+        <input type="number" step="0.1" id="bmi" name="bmi" required min="0" max="70" placeholder="e.g. 24.5">
+      </div>
+
+      <div class="input-group">
+        <label for="dpf">Diabetes Pedigree Function</label>
+        <input type="number" step="0.001" id="dpf" name="dpf" required min="0" max="3" placeholder="e.g. 0.58">
+      </div>
+
+      <div class="input-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" required min="1" max="120" placeholder="e.g. 35">
+      </div>
+
+      <button type="submit" class="btn-submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="result-message">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+
+</div>
+
 {% endblock %}
-
