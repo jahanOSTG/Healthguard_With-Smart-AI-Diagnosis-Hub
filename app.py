@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
 from flask_mysqldb import MySQL
+from ml_diabetic_model import predict_diabetes
 
 app = Flask(__name__)
 
@@ -142,6 +143,47 @@ def contact():
 @app.route('/diabetes')
 def diabetes():
     return render_template('diabetes.html')
+
+
+@app.route('/predict_diabetes', methods=['POST'])
+def predict_diabetes_route():
+    # Extract data from form inputs
+    data = [
+        float(request.form['pregnancies']),
+        float(request.form['glucose']),
+        float(request.form['bloodpressure']),
+        float(request.form['skinthickness']),
+        float(request.form['insulin']),
+        float(request.form['bmi']),
+        float(request.form['dpf']),
+        float(request.form['age'])
+    ]
+
+    # Use the prediction function from ml_diabetic_model.py
+    prediction = predict_diabetes(data)
+
+    # Prepare user-friendly message
+    result = "The person is Diabetic" if prediction == 1 else "The person is Not Diabetic"
+
+    return render_template('diabetes.html', prediction_text=result)
+
+
+@app.route('/show_diabetes_report', methods=['POST'])
+def show_diabetes_report():
+    input_data = {
+        'pregnancies': request.form['pregnancies'],
+        'glucose': request.form['glucose'],
+        'bloodpressure': request.form['bloodpressure'],
+        'skinthickness': request.form['skinthickness'],
+        'insulin': request.form['insulin'],
+        'bmi': request.form['bmi'],
+        'dpf': request.form['dpf'],
+        'age': request.form['age'],
+        'result': request.form['result']
+    }
+    return render_template('diabetes_report.html', data=input_data)
+
+
 
 
 if __name__ == '__main__':
