@@ -139,5 +139,10 @@ def contact():
 
     return render_template('contact.html')
 
+@app.route('/diabetes')
+def diabetes():
+    return render_template('diabetes.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
