@@ -1,0 +1,63 @@
+{% extends 'app.html' %}
+
+{% block extra_css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/appointment.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="text-center mb-0">Book an Appointment</h3>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('book_appointment') }}">
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="phone" name="phone" placeholder="+8801234567890" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="date" class="form-label">Preferred Date</label>
+          <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="time" class="form-label">Preferred Time</label>
+          <input type="time" class="form-control" id="time" name="time" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="doctor" class="form-label">Select Doctor</label>
+          <select class="form-select" id="doctor" name="doctor" required>
+            <option value="">-- Select a Doctor --</option>
+            <option value="Dr. Janie">Dr. Janie (Medicine)</option>
+            <option value="Dr. Ahmed">Dr. Ahmed (Cardiology)</option>
+            <option value="Dr. Rahman">Dr. Rahman (Pediatrics)</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="message" class="form-label">Additional Message</label>
+          <textarea class="form-control" id="message" name="message" rows="3" placeholder="Any symptoms, concerns or comments..."></textarea>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success px-5">Book Now</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -11,17 +11,20 @@
 <!-- Navbar 1: Feature Links -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">🏥 Janie Medical Center</a>
+    <a class="navbar-brand" href="#">🏥 Luvia Medical Center</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="featureNavbar">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#">Appointments</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('book_appointment') }}">Appointments</a></li>
+
         <li class="nav-item"><a class="nav-link" href="#">Health Tips</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"></a></li>
          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+         <li class="nav-item"><a class="nav-link" href="#">Admin Panel</a></li>
          <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
   <i class="bi bi-heart-pulse-fill me-1"></i> Prediction Tools
@@ -68,14 +71,31 @@
     </div>
   {% endif %}
 
-  <!-- About Us -->
-  <section class="about-section">
-    <h2 class="section-title">About Janie Medical Center</h2>
-    <p>
-      Janie Medical Center is committed to providing world-class healthcare with compassion, care, and advanced technology. 
-      We serve thousands of patients every year with dedication and professionalism, guided by experienced doctors and a caring staff.
-    </p>
-  </section>
+<!-- About Us -->
+<section class="about-section">
+  <div class="about-container">
+    <div class="about-text">
+      <h2 class="section-title">About Luvia Medical Center</h2>
+      <p>
+        At <strong>Luvia Medical Center</strong>, we blend compassion with cutting-edge medical technology to ensure every patient receives the best possible care.
+        Our facility offers a full range of specialized units, including:
+      </p>
+      <ul>
+        <li>🛏️ Modern <strong>Inpatient Wards</strong> with real-time bed availability</li>
+        <li>🧪 Fully stocked <strong>Pharmacy & Medicine Center</strong></li>
+        <li>⚕️ Advanced <strong>Operation Theaters (OT)</strong></li>
+        <li>💓 High-tech <strong>ICU</strong>, <strong>CCU</strong>, and <strong>NICU</strong> for critical and neonatal care</li>
+        <li>🤖 AI-powered tools for disease prediction, health monitoring, and diagnostics</li>
+      </ul>
+      
+    </div>
+    <div class="about-image">
+      <img src="{{ url_for('static', filename='img/building.jpeg') }}" alt="Luvia Medical Center" />
+    </div>
+  </div>
+</section>
+
+
 
   <!-- Facilities -->
   <section class="facilities-section">
