@@ -185,6 +185,45 @@ def show_diabetes_report():
 
 
 
+@app.route('/book_appointment', methods=['GET', 'POST'])
+def book_appointment():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        date = request.form.get('date')
+        time = request.form.get('time')
+        doctor = request.form.get('doctor')
+        message = request.form.get('message')
+
+        if not (name and email and date and time and doctor):
+            flash("Please fill in all required fields.", "danger")
+            return redirect(url_for('book_appointment'))
+
+        try:
+            cursor = mysql.connection.cursor()
+            insert_query = """
+                INSERT INTO appointments (name, email, phone, date, time, doctor, message)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(insert_query, (name, email, phone, date, time, doctor, message))
+            mysql.connection.commit()
+            cursor.close()
+            flash("Appointment successfully booked!", "success")
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f"Database error: {str(e)}", "danger")
+            return redirect(url_for('book_appointment'))
+
+    return render_template('book_appointment.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
+
+
+
+
