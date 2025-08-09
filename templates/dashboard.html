@@ -11,37 +11,78 @@
 <!-- Navbar 1: Feature Links -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">🏥 Luvia Medical Center</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="bi bi-hospital me-2"></i>
+      Luvia Medical Center
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar" aria-controls="featureNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="featureNavbar">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('book_appointment') }}">Appointments</a></li>
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="{{ url_for('book_appointment') }}">
+            <i class="bi bi-calendar-check me-1"></i> Appointments
+          </a>
+        </li>
 
-        <li class="nav-item"><a class="nav-link" href="#">Health Tips</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Doctors</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#"></a></li>
-         <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
-         <li class="nav-item"><a class="nav-link" href="#">Admin Panel</a></li>
-         <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-  <i class="bi bi-heart-pulse-fill me-1"></i> Prediction Tools
-</a>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="#">
+            <i class="bi bi-person-badge me-1"></i> Doctors
+          </a>
+        </li>
+
+       <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-briefcase-medical me-1"></i> Services
+  </a>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Cancer</a></li>
-    <li><a class="dropdown-item" href="/diabetes">Diabetes</a></li>
-    <li><a class="dropdown-item" href="#">Heart Disease</a></li>
-    <li><a class="dropdown-item" href="#">COVID-19</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('blood_bank') }}">Blood Bank</a></li>
+    <li><a class="dropdown-item" href="#">Pharmacy</a></li>
+    <li><a class="dropdown-item" href="#">Emergency Care</a></li>
+    <li><a class="dropdown-item" href="#">Radiology</a></li>
+    <li><a class="dropdown-item" href="#">Laboratory</a></li>
   </ul>
 </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="{{ url_for('contact') }}">
+            <i class="bi bi-envelope me-1"></i> Contact
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center" href="#">
+            <i class="bi bi-speedometer2 me-1"></i> Admin Panel
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-bold d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-heart-fill me-1"></i> Prediction Tools
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Cancer</a></li>
+            <li><a class="dropdown-item" href="/diabetes">Diabetes</a></li>
+            <li><a class="dropdown-item" href="#">Heart Disease</a></li>
+            <li><a class="dropdown-item" href="#">COVID-19</a></li>
+          </ul>
+        </li>
+
+        <!-- Dark Mode Toggle -->
+        <li class="nav-item">
+          <button id="darkModeToggle" class="btn btn-outline-secondary ms-3" title="Toggle Dark Mode">
+            <i class="bi bi-moon-fill"></i>
+          </button>
+        </li>
 
       </ul>
     </div>
   </div>
 </nav>
-
 
 <!-- Carousel -->
 <div class="container mt-4">
