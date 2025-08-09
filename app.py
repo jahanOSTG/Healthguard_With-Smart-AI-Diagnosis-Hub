@@ -217,6 +217,25 @@ def book_appointment():
 
     return render_template('book_appointment.html')
 
+
+@app.route('/blood_bank', methods=['GET', 'POST'])
+def blood_bank():
+    if request.method == 'POST':
+        donor_name = request.form['donor_name']
+        email = request.form['email']
+        phone = request.form['phone']
+        blood_group = request.form['blood_group']
+        last_donation = request.form.get('last_donation')
+        health_condition = request.form.get('health_condition')
+
+        # Save this info to your database here
+
+        flash('Thank you for your donation registration!', 'success')
+        return redirect(url_for('blood_bank'))
+
+    return render_template('blood_bank.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
