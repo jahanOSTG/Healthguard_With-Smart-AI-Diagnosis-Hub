@@ -26,6 +26,32 @@ body {
   color: #007bff !important;
 }
 
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+body.dark-mode .navbar-light {
+  background-color: #222 !important;
+}
+
+body.dark-mode .navbar-light .nav-link {
+  color: #ddd !important;
+}
+
+body.dark-mode .navbar-light .nav-link:hover {
+  color: #0d6efd !important;
+}
+
+body.dark-mode .dropdown-menu {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+body.dark-mode .dropdown-menu a {
+  color: #ddd !important;
+}
+
 /* Carousel */
 .carousel-inner img {
   height: 400px;
