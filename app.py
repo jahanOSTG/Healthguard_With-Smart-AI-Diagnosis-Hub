@@ -235,6 +235,50 @@ def blood_bank():
 
     return render_template('blood_bank.html')
 
+@app.route('/donors', methods=['GET', 'POST'])
+def donors():
+    cursor = mysql.connection.cursor()
+
+    if request.method == 'POST':
+        donor_name = request.form['donor_name']
+        email = request.form['email']
+        phone = request.form['phone']
+        blood_group = request.form['blood_group']
+        last_donation = request.form.get('last_donation')
+        health_condition = request.form.get('health_condition')
+
+        cursor.execute("""
+            INSERT INTO donors (donor_name, email, phone, blood_group, last_donation, health_condition)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (donor_name, email, phone, blood_group, last_donation, health_condition))
+        mysql.connection.commit()
+
+        flash('🎉 Congratulations! You have successfully joined as a donor.', 'success')
+
+    cursor.execute("SELECT * FROM donors ORDER BY created_at DESC")
+    donor_list = cursor.fetchall()
+    cursor.close()
+
+    return render_template('donors.html', donors=donor_list)
+
+
+
+
+@app.route('/blood-groups')
+def blood_groups():
+    groups = [
+        {"name": "A+", "liters": 12},
+        {"name": "A-", "liters": 5},
+        {"name": "B+", "liters": 8},
+        {"name": "B-", "liters": 3},
+        {"name": "O+", "liters": 15},
+        {"name": "O-", "liters": 2},
+        {"name": "AB+", "liters": 6},
+        {"name": "AB-", "liters": 1}
+    ]
+    return render_template("blood_groups.html", groups=groups)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
