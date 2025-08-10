@@ -46,7 +46,7 @@
   /* Main content section */
   .blood-image {
     flex: 1;
-    display: flex;
+    display: cover;
     flex-direction: column;
     align-items: center;
     padding: 40px;
@@ -61,6 +61,7 @@
 
   .image-caption {
     margin-top: 15px;
+       align-items: center;
     font-size: 1rem;
     font-style: italic;
     color: #555;
@@ -97,16 +98,22 @@
   <!-- Sidebar Dashboard -->
   <div class="dashboard-sidebar">
     <h4>📊 Dashboard</h4>
+<a href="{{ url_for('blood_groups') }}">
     <div class="dashboard-card">
       <i class="bi bi-droplet-fill"></i>
-      <div class="stat-number">8</div>
       <div class="stat-label">Blood Groups</div>
     </div>
+</a>
+
+<a href="{{ url_for('donors') }}">
     <div class="dashboard-card">
       <i class="bi bi-people-fill"></i>
-      <div class="stat-number">120</div>
+      <div class="stat-number">{{ donors|length }}</div>
       <div class="stat-label">Donors</div>
     </div>
+</a>
+
+
     <div class="dashboard-card">
       <i class="bi bi-envelope-fill"></i>
       <div class="stat-number">5</div>
@@ -122,6 +129,7 @@
   <!-- Main Content (Image + Text) -->
   <div class="blood-image">
     <img src="{{ url_for('static', filename='img/blood1.jpg') }}" alt="Blood Donation">
+    <img src="{{ url_for('static', filename='img/blood.jpg') }}" alt="Blood Donation">
     <div class="image-caption">
       “One donation can save up to three lives — your blood is precious, share it.”
     </div>

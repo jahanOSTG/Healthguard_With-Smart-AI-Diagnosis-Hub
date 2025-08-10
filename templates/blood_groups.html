@@ -1,0 +1,55 @@
+{% extends 'app.html' %}
+
+{% block extra_css %}
+<style>
+  .blood-groups-container {
+    padding: 40px;
+    text-align: center;
+  }
+
+  .blood-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .blood-item {
+    background: #B9375D;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, background 0.3s ease;
+  }
+
+  .blood-item:hover {
+    transform: translateY(-3px);
+    background: #a02e50;
+  }
+
+  .liters {
+    display: block;
+    font-size: 0.85rem;
+    color: #FFD700;
+    font-weight: normal;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="blood-groups-container">
+  <h2>🩸 Available Blood Groups</h2>
+  <div class="blood-navbar">
+    {% for group in groups %}
+      <div class="blood-item">
+        {{ group.name }}
+        <span class="liters">{{ group.liters }} L</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
