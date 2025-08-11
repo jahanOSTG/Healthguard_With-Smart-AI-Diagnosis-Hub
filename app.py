@@ -279,6 +279,56 @@ def blood_groups():
     return render_template("blood_groups.html", groups=groups)
 
 
+# ---------------- Admin Login ---------------- #
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM admin WHERE email = %s", (email,))
+        admin = cursor.fetchone()
+        cursor.close()
+
+        # Compare plain password directly
+        if admin and password == admin[3]:
+            session['admin_id'] = admin[0]
+            session['admin_email'] = admin[2]
+            flash("Login successful!", "success")
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash("Invalid email or password. Try again.", "danger")
+            return redirect(url_for('admin_login'))
+
+    return render_template('admin_login.html')
+
+
+
+# ---------------- Admin Dashboard ---------------- #
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    if 'admin_id' not in session:
+        flash("Please log in to access the admin dashboard.", "warning")
+        return redirect(url_for('admin_login'))
+
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id, name, email FROM users")
+    users = cursor.fetchall()
+    cursor.close()
+
+    return render_template('admin_dashboard.html', users=users, admin_email=session['admin_email'])
+
+
+# ---------------- Admin Logout ---------------- #
+@app.route('/admin/logout')
+def admin_logout():
+    session.clear()
+    flash("You have been logged out!", "info")
+    return redirect(url_for('admin_login'))
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
