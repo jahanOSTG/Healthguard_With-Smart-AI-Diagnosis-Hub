@@ -97,33 +97,39 @@
 
   <!-- Sidebar Dashboard -->
   <div class="dashboard-sidebar">
-    <h4>📊 Dashboard</h4>
+    
+
+<div class="dashboard-card" style="text-align: center; padding: 15px; color: #fff;">
+  <img src="{{ url_for('static', filename='img/bl.jpg') }}" alt="Dr. Umme Mezbah Akter" 
+       style="width: 170px; height: 170px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.3); margin: 0 auto 10px auto; display: block;">
+  <h5 style="margin: 0; font-size: 1.1rem;">Dr. Umme Mezbah Akter</h5>
+  <small style="color: #ffd700; display: block;">MBBS, MD (Transfusion Medicine)</small>
+  <em style="color: #ffc107; display: block; margin-bottom: 8px;">Specialist, Blood Bank</em>
+  <p style="margin: 0 auto; font-size: 0.9rem; max-width: 300px; line-height: 1.3em; height: 2.6em; overflow: hidden; text-overflow: ellipsis;">
+    Dr. Umme Mezbah Akter is a highly motivated specialist in Transfusion Medicine, passionate about patient care and education.
+  </p>
+</div>
+
+
+    
 <a href="{{ url_for('blood_groups') }}">
     <div class="dashboard-card">
       <i class="bi bi-droplet-fill"></i>
-      <div class="stat-label">Blood Groups</div>
+      <div class="stat-label" style="color: #FFE100;">Blood Groups</div>
     </div>
 </a>
 
 <a href="{{ url_for('donors') }}">
     <div class="dashboard-card">
       <i class="bi bi-people-fill"></i>
-      <div class="stat-number">{{ donors|length }}</div>
-      <div class="stat-label">Donors</div>
+      
+  <div class="stat-label" style="color: #FFE100;">Donors</div>
+
     </div>
 </a>
 
 
-    <div class="dashboard-card">
-      <i class="bi bi-envelope-fill"></i>
-      <div class="stat-number">5</div>
-      <div class="stat-label">Pending Requests</div>
-    </div>
-    <div class="dashboard-card">
-      <i class="bi bi-heart-fill"></i>
-      <div class="stat-number">320</div>
-      <div class="stat-label">Units Collected</div>
-    </div>
+
   </div>
 
   <!-- Main Content (Image + Text) -->

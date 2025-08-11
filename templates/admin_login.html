@@ -1,0 +1,56 @@
+{% extends 'app.html' %}
+
+{% block content %}
+<style>
+  .admin-login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .admin-login-container h3 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #555;
+  }
+
+  .form-control {
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    border: none;
+  }
+</style>
+
+<div class="admin-login-container">
+  <h3>Admin Login</h3>
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="text" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'app.html' %}
+
+{% block content %}
+<h1>Welcome, {{ username }} 👋</h1>
+<a href="{{ url_for('dashboard') }}">Logout</a>
+
+<hr>
+
+<h2>All Admin Accounts</h2>
+<table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Created At</th>
+    </tr>
+    {% for admin in admins %}
+    <tr>
+        <td>{{ admin.id }}</td>
+        <td>{{ admin.username }}</td>
+        <td>{{ admin.email }}</td>
+        <td>{{ admin.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

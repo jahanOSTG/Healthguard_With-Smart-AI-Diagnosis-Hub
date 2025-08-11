@@ -2,95 +2,234 @@
 
 {% block extra_css %}
 <style>
-    .donor-card {
-        background: white;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        margin-bottom: 15px;
-    }
-    .add-form {
-        display: none;
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
+  body {
+    background: #fff0f3;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #3a3a3a;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 15px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #b93352;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 1px 5px #ff758f;
+  }
+
+  /* Flash messages */
+  .alert {
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(185, 50, 75, 0.3);
+  }
+
+  /* Add Donor Button */
+  .btn-primary {
+    background: #b93352;
+    border: none;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 30px;
+    box-shadow: 0 6px 15px rgba(185, 50, 75, 0.5);
+    transition: background 0.3s ease;
+    display: block;
+    margin: 0 auto 30px;
+  }
+  .btn-primary:hover {
+    background: #992d45;
+  }
+
+  /* Add Form */
+  .add-form {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(185, 50, 75, 0.2);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .add-form.active {
+    max-height: 800px; /* enough for full form */
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  /* Form groups */
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  label {
+    font-weight: 600;
+    color: #b93352;
+  }
+
+  input.form-control,
+  select.form-control,
+  textarea.form-control {
+    border-radius: 12px;
+    border: 1.8px solid #b93352;
+    padding: 10px 15px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  input.form-control:focus,
+  select.form-control:focus,
+  textarea.form-control:focus {
+    border-color: #ff6170;
+    outline: none;
+    box-shadow: 0 0 8px #ff758f88;
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  /* Submit button */
+  button.btn-success {
+    background: #ff6170;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    padding: 12px 35px;
+    box-shadow: 0 6px 15px rgba(255, 97, 112, 0.5);
+    transition: background 0.3s ease;
+    cursor: pointer;
+  }
+  button.btn-success:hover {
+    background: #e84f5a;
+  }
+
+  /* Donor List */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .col-md-4 {
+    flex: 1 1 280px;
+    max-width: 280px;
+  }
+
+  .donor-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: 0 10px 25px rgba(185, 50, 75, 0.15);
+    transition: transform 0.25s ease;
+    cursor: default;
+  }
+  .donor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(185, 50, 75, 0.3);
+  }
+
+  .donor-card h5 {
+    color: #b93352;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .donor-card small.text-danger {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .donor-card p {
+    font-size: 0.9rem;
+    color: #5a5a5a;
+    margin-bottom: 6px;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">🩸 Donor List</h2>
+<div class="container">
+  <h2>🩸 Donor List</h2>
 
-    <!-- Flash messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-    <!-- Add Donor Button -->
-    <button class="btn btn-primary mb-3" onclick="toggleForm()">➕ Add Donor</button>
+  <!-- Add Donor Button -->
+  <button class="btn btn-primary mb-3" onclick="toggleForm()">➕ Add Donor</button>
 
-    <!-- Add Donor Form -->
-    <div class="add-form" id="donorForm">
-        <form method="POST">
-            <div class="form-group">
-                <label>Donor Name</label>
-                <input type="text" name="donor_name" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <input type="text" name="phone" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Blood Group</label>
-                <select name="blood_group" class="form-control" required>
-                    <option value="">-- Select --</option>
-                    <option>A+</option><option>A-</option>
-                    <option>B+</option><option>B-</option>
-                    <option>O+</option><option>O-</option>
-                    <option>AB+</option><option>AB-</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Last Donation Date</label>
-                <input type="date" name="last_donation" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Health Condition</label>
-                <textarea name="health_condition" class="form-control"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-    </div>
+  <!-- Add Donor Form -->
+  <div class="add-form" id="donorForm">
+    <form method="POST">
+      <div class="form-group">
+        <label>Donor Name</label>
+        <input type="text" name="donor_name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="text" name="phone" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Blood Group</label>
+        <select name="blood_group" class="form-control" required>
+          <option value="">-- Select --</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Last Donation Date</label>
+        <input type="date" name="last_donation" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Health Condition</label>
+        <textarea name="health_condition" class="form-control"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
 
-    <!-- Donor List -->
-    <div class="row">
-        {% for donor in donors %}
-        <div class="col-md-4">
-            <div class="donor-card">
-                <h5>{{ donor[1] }} <small class="text-danger">({{ donor[4] }})</small></h5>
-                <p>Email: {{ donor[2] or 'N/A' }}</p>
-                <p>Phone: {{ donor[3] or 'N/A' }}</p>
-                <p>Last Donation: {{ donor[5] or 'Never' }}</p>
-            </div>
+  <!-- Donor List -->
+  <div class="row mt-4">
+    {% for donor in donors %}
+      <div class="col-md-4">
+        <div class="donor-card" tabindex="0">
+          <h5>{{ donor[1] }} <small class="text-danger">({{ donor[4] }})</small></h5>
+          <p>Email: {{ donor[2] or 'N/A' }}</p>
+          <p>Phone: {{ donor[3] or 'N/A' }}</p>
+          <p>Last Donation: {{ donor[5] or 'Never' }}</p>
         </div>
-        {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 <script>
-    function toggleForm() {
-        document.getElementById("donorForm").style.display =
-            document.getElementById("donorForm").style.display === "none" ? "block" : "none";
-    }
+  function toggleForm() {
+    const form = document.getElementById("donorForm");
+    form.classList.toggle("active");
+  }
 </script>
 {% endblock %}
