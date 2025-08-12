@@ -5,6 +5,8 @@ from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
 from flask_mysqldb import MySQL
 from ml_diabetic_model import predict_diabetes
+import MySQLdb.cursors
+
 
 app = Flask(__name__)
 
@@ -305,19 +307,39 @@ def admin_login():
 
 
 
-# ---------------- Admin Dashboard ---------------- #
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if 'admin_id' not in session:
         flash("Please log in to access the admin dashboard.", "warning")
         return redirect(url_for('admin_login'))
 
-    cursor = mysql.connection.cursor()
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    # Fetch users
     cursor.execute("SELECT id, name, email FROM users")
     users = cursor.fetchall()
+
+    # Fetch appointments
+    cursor.execute("SELECT id, name, email, phone, date, time, doctor FROM appointments")
+    appointments = cursor.fetchall()
+
+    # Fetch donors
+    cursor.execute("SELECT id, donor_name, email, phone, blood_group FROM donors")
+    donors = cursor.fetchall()
+
+    # Fetch admins
+    cursor.execute("SELECT id, username, email, created_at FROM admin")
+    admins = cursor.fetchall()
+
     cursor.close()
 
-    return render_template('admin_dashboard.html', users=users, admin_email=session['admin_email'])
+    return render_template('admin_dashboard.html', 
+                           users=users, 
+                           appointments=appointments, 
+                           donors=donors, 
+                           admins=admins,
+                           admin_email=session['admin_email'])
+
 
 
 # ---------------- Admin Logout ---------------- #
@@ -332,7 +354,6 @@ def admin_logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
 
