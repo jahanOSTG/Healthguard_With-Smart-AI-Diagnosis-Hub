@@ -2,55 +2,146 @@
 
 {% block content %}
 <style>
+  /* Full page background image */
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: url('/static/img/3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* prevent scroll during drag */
+  }
+
+  /* Overlay to darken background for readability */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: -1;
+  }
+
+  /* Draggable admin login container */
   .admin-login-container {
-    max-width: 400px;
-    margin: 80px auto;
-    background: #ffffff;
-    padding: 25px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow:
+      0 15px 40px rgba(0,0,0,0.3),
+      0 0 0 3px rgba(29, 155, 240, 0.2);
+    transform: translate(-50%, -50%);
+    cursor: move;
+    user-select: none;
+    transition: box-shadow 0.3s ease;
+    z-index: 10;
+  }
+
+  .admin-login-container:active {
+    box-shadow:
+      0 25px 50px rgba(0,0,0,0.45),
+      0 0 0 5px rgba(29, 155, 240, 0.4);
   }
 
   .admin-login-container h3 {
+    margin: 0 0 30px;
+    font-weight: 900;
+    color: #1d3557;
+    font-size: 2rem;
+    letter-spacing: 2px;
     text-align: center;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: #333;
+    user-select: none;
   }
 
   .form-label {
-    font-weight: 500;
-    color: #555;
+    font-weight: 700;
+    color: #264653;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 1.1rem;
   }
 
   .form-control {
-    border-radius: 8px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1rem;
+    border: 2px solid #a8dadc;
+    border-radius: 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+
+  .form-control:focus {
+    border-color: #1d9bf0;
+    box-shadow: 0 0 10px #1d9bf0aa;
   }
 
   .btn-primary {
+    margin-top: 25px;
     width: 100%;
-    padding: 10px;
-    font-weight: 500;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #007bff, #0056b3);
+    padding: 16px;
+    background: linear-gradient(45deg, #1d9bf0, #0a6ed1);
     border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background: linear-gradient(45deg, #0a6ed1, #155fab);
+    box-shadow: 0 8px 20px rgba(21, 127, 196, 0.7);
+    outline: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .admin-login-container {
+      width: 90%;
+      padding: 30px 20px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .admin-login-container h3 {
+      font-size: 1.6rem;
+    }
+    .form-label {
+      font-size: 1rem;
+    }
+    .btn-primary {
+      font-size: 1rem;
+      padding: 14px;
+    }
   }
 </style>
 
-<div class="admin-login-container">
+<div class="admin-login-container" id="draggable-container" tabindex="0" aria-label="Admin Login Form">
   <h3>Admin Login</h3>
-  <form method="POST">
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input type="text" name="email" class="form-control" required>
+  <form method="POST" novalidate>
+    <div class="mb-4">
+      <label for="email" class="form-label">Email Address</label>
+      <input id="email" type="email" name="email" class="form-control" placeholder="admin@example.com" required>
     </div>
-    <div class="mb-3">
-      <label class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" required>
+    <div class="mb-4">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" type="password" name="password" class="form-control" placeholder="Enter your password" required>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn-primary">Login</button>
   </form>
 </div>
+
+
 {% endblock %}
