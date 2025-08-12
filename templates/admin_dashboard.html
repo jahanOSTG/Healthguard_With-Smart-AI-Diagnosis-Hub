@@ -1,26 +1,151 @@
 {% extends 'app.html' %}
 
 {% block content %}
-<h1>Welcome, {{ username }} 👋</h1>
-<a href="{{ url_for('dashboard') }}">Logout</a>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
 
-<hr>
+<div class="container">
+  <nav class="sidebar" id="sidebar">
+    <h3>Admin Menu</h3>
+    <a onclick="showSection('admins')" id="link-admins"><span class="icon">👤</span> Admin List</a>
+    <a onclick="showSection('appointments')" id="link-appointments"><span class="icon">📅</span> Appointment List</a>
+    <a onclick="showSection('users')" id="link-users"><span class="icon">🧑</span> User List</a>
+    <a onclick="showSection('donors')" id="link-donors"><span class="icon">💉</span> Donor List</a>
+    <a href="{{ url_for('logout') }}"><span class="icon">🚪</span> Logout</a>
+  </nav>
 
-<h2>All Admin Accounts</h2>
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Created At</th>
-    </tr>
-    {% for admin in admins %}
-    <tr>
-        <td>{{ admin.id }}</td>
-        <td>{{ admin.username }}</td>
-        <td>{{ admin.email }}</td>
-        <td>{{ admin.created_at }}</td>
-    </tr>
-    {% endfor %}
-</table>
+  <section class="main-content">
+    <h1>Welcome, {{ admin_email }} 👋</h1>
+    <hr>
+
+    <!-- Admin List Section -->
+    <div id="admins" class="list-section">
+      <h2>Admin List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for admin in admins %}
+          <tr>
+            <td>{{ admin.id }}</td>
+            <td>{{ admin.username }}</td>
+            <td>{{ admin.email }}</td>
+            <td>{{ admin.created_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Appointment List Section -->
+    <div id="appointments" class="list-section">
+      <h2>Appointment List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Doctor</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for app in appointments %}
+          <tr>
+            <td>{{ app.id }}</td>
+            <td>{{ app.name }}</td>
+            <td>{{ app.email }}</td>
+            <td>{{ app.phone }}</td>
+            <td>{{ app.date }}</td>
+            <td>{{ app.time }}</td>
+            <td>{{ app.doctor }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- User List Section -->
+    <div id="users" class="list-section">
+      <h2>User List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Donor List Section -->
+    <div id="donors" class="list-section">
+      <h2>Donor List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Blood Group</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for donor in donors %}
+          <tr>
+            <td>{{ donor.id }}</td>
+            <td>{{ donor.donor_name }}</td>
+            <td>{{ donor.email }}</td>
+            <td>{{ donor.phone }}</td>
+            <td>{{ donor.blood_group }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+  const links = document.querySelectorAll('.sidebar a');
+
+  function showSection(id) {
+    // Hide all sections
+    document.querySelectorAll('.list-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    // Remove active from all links
+    links.forEach(link => link.classList.remove('active'));
+
+    // Show selected section
+    document.getElementById(id).classList.add('active');
+
+    // Highlight clicked link
+    document.getElementById('link-' + id).classList.add('active');
+  }
+
+  // Show Admin list by default on page load
+  window.onload = () => {
+    showSection('admins');
+  };
+</script>
 {% endblock %}
