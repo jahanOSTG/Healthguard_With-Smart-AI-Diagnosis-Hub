@@ -3,6 +3,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
 import bcrypt
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_mysqldb import MySQL
+import os
+
 from flask_mysqldb import MySQL
 from ml_diabetic_model import predict_diabetes
 import MySQLdb.cursors
@@ -307,6 +311,31 @@ def admin_login():
 
 
 
+@app.route('/add_doctor', methods=['POST'])
+def add_doctor():
+    name = request.form['name']
+    email = request.form['email']
+    phone = request.form['phone']  # Make sure your form has phone field
+    specialty = request.form['specialty']
+    photo = request.files['photo']
+
+    filename = None
+    if photo:
+        filename = photo.filename
+        save_path = os.path.join('static', 'img', filename)  # save in static/img
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)  # create folder if not exist
+        photo.save(save_path)
+
+    cursor = mysql.connection.cursor()
+    cursor.execute(
+        "INSERT INTO doctors (name, email, phone, specialty, image) VALUES (%s, %s, %s, %s, %s)",
+        (name, email, phone, specialty, filename)
+    )
+    mysql.connection.commit()
+    cursor.close()
+    flash('Doctor added successfully!', 'success')
+    return redirect(url_for('admin_dashboard'))
+
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if 'admin_id' not in session:
@@ -330,6 +359,15 @@ def admin_dashboard():
     # Fetch admins
     cursor.execute("SELECT id, username, email, created_at FROM admin")
     admins = cursor.fetchall()
+    
+    # Fetch contact messages
+    cursor.execute("SELECT id, name, email, message, submitted_at FROM contact_messages")
+    contact_messages = cursor.fetchall()
+    
+    # Fetch doctors
+    cursor.execute("SELECT id, name, email, phone, specialty, image FROM doctors")
+
+    doctors = cursor.fetchall()
 
     cursor.close()
 
@@ -338,7 +376,10 @@ def admin_dashboard():
                            appointments=appointments, 
                            donors=donors, 
                            admins=admins,
+                           contact_messages=contact_messages,
+                           doctors=doctors,  # pass doctors to template
                            admin_email=session['admin_email'])
+
 
 
 
@@ -354,7 +395,6 @@ def admin_logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
 
