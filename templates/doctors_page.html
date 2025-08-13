@@ -1,0 +1,32 @@
+{% extends 'app.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/doctors.css') }}">
+
+<div class="container mt-5">
+  <h1 class="mb-5 text-center" style="font-weight: 700; color: #2c3e50;">Meet Our Doctors</h1>
+  
+  <div class="row">
+    {% for doc in doctors %}
+    <div class="col-md-4 mb-4">
+      <div class="card doctor-card h-100 text-center p-3 border-0 shadow-sm rounded-4">
+        
+        {% if doc.image %}
+        <img src="{{ url_for('static', filename='img/' ~ doc.image) }}" class="rounded-circle mx-auto d-block mb-3" style="width:120px; height:120px; object-fit:cover;" alt="{{ doc.name }}">
+        {% else %}
+        <img src="{{ url_for('static', filename='img/default.png') }}" class="rounded-circle mx-auto d-block mb-3" style="width:120px; height:120px; object-fit:cover;" alt="No Image">
+        {% endif %}
+        
+        <div class="card-body">
+          <h5 class="card-title mb-2" style="font-weight:600; color:#34495e;">{{ doc.name }}</h5>
+          <p class="card-text mb-1"><i class="bi bi-envelope-fill me-2"></i>{{ doc.email }}</p>
+          <p class="card-text mb-1"><i class="bi bi-telephone-fill me-2"></i>{{ doc.phone }}</p>
+          <p class="card-text mb-0"><i class="bi bi-heart-pulse-fill me-2"></i>{{ doc.specialty }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

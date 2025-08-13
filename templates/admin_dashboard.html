@@ -4,20 +4,24 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
 
 <div class="container">
+  <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
     <h3>Admin Menu</h3>
     <a onclick="showSection('admins')" id="link-admins"><span class="icon">👤</span> Admin List</a>
+    <a onclick="showSection('doctors')" id="link-doctors"><span class="icon">🩺</span> Doctors</a>
     <a onclick="showSection('appointments')" id="link-appointments"><span class="icon">📅</span> Appointment List</a>
     <a onclick="showSection('users')" id="link-users"><span class="icon">🧑</span> User List</a>
     <a onclick="showSection('donors')" id="link-donors"><span class="icon">💉</span> Donor List</a>
+    <a onclick="showSection('contact_messages')" id="link-contact_messages"><span class="icon">💌</span> Contact List</a>
     <a href="{{ url_for('logout') }}"><span class="icon">🚪</span> Logout</a>
   </nav>
 
+  <!-- Main Content -->
   <section class="main-content">
     <h1>Welcome, {{ admin_email }} 👋</h1>
     <hr>
 
-    <!-- Admin List Section -->
+    <!-- Admin List -->
     <div id="admins" class="list-section">
       <h2>Admin List</h2>
       <table>
@@ -42,7 +46,7 @@
       </table>
     </div>
 
-    <!-- Appointment List Section -->
+    <!-- Appointment List -->
     <div id="appointments" class="list-section">
       <h2>Appointment List</h2>
       <table>
@@ -73,7 +77,7 @@
       </table>
     </div>
 
-    <!-- User List Section -->
+    <!-- User List -->
     <div id="users" class="list-section">
       <h2>User List</h2>
       <table>
@@ -96,7 +100,7 @@
       </table>
     </div>
 
-    <!-- Donor List Section -->
+    <!-- Donor List -->
     <div id="donors" class="list-section">
       <h2>Donor List</h2>
       <table>
@@ -122,30 +126,105 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Contact Messages -->
+    <div id="contact_messages" class="list-section">
+      <h2>Contact List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Submitted At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for msg in contact_messages %}
+          <tr>
+            <td>{{ msg.id }}</td>
+            <td>{{ msg.name }}</td>
+            <td>{{ msg.email }}</td>
+            <td>{{ msg.message }}</td>
+            <td>{{ msg.submitted_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Doctors Section -->
+    <div id="doctors" class="list-section">
+      <h2>Doctors List</h2>
+      <button onclick="showForm()">Add Doctor</button>
+
+      <!-- Doctor Form (hidden by default) -->
+      <div id="doctor-form" style="display:none; margin-top: 15px;">
+        <form action="{{ url_for('add_doctor') }}" method="POST" enctype="multipart/form-data">
+          <label>Name:</label><br>
+          <input type="text" name="name" required><br>
+          <label>Email:</label><br>
+          <input type="email" name="email" required><br>
+          <label>Phone:</label><br>
+          <input type="text" name="phone" required><br>
+          <label>Specialty:</label><br>
+          <input type="text" name="specialty" required><br>
+          <label>Photo:</label><br>
+          <input type="file" name="photo" required><br><br>
+          <button type="submit">Add Doctor</button>
+        </form>
+      </div>
+
+      <table border="1" style="margin-top:10px;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Specialty</th>
+            <th>Photo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for doc in doctors %}
+          <tr>
+            <td>{{ doc.id }}</td>
+            <td>{{ doc.name }}</td>
+            <td>{{ doc.email }}</td>
+            <td>{{ doc.phone }}</td>
+            <td>{{ doc.specialty }}</td>
+            <td>
+              {% if doc.image %}
+              <img src="{{ url_for('static', filename='img/' ~ doc.image) }}" width="60">
+              {% else %}
+              N/A
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
   </section>
 </div>
 
 <script>
+  function showForm() {
+    let form = document.getElementById('doctor-form');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
   const links = document.querySelectorAll('.sidebar a');
 
   function showSection(id) {
-    // Hide all sections
-    document.querySelectorAll('.list-section').forEach(section => {
-      section.classList.remove('active');
-    });
-    // Remove active from all links
+    document.querySelectorAll('.list-section').forEach(s => s.style.display = 'none');
     links.forEach(link => link.classList.remove('active'));
-
-    // Show selected section
-    document.getElementById(id).classList.add('active');
-
-    // Highlight clicked link
+    document.getElementById(id).style.display = 'block';
     document.getElementById('link-' + id).classList.add('active');
   }
 
-  // Show Admin list by default on page load
-  window.onload = () => {
-    showSection('admins');
-  };
+  window.onload = () => showSection('admins'); // default
 </script>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'app.html' %}
+
+{% block content %}
+<h2>Available Medicines</h2>
+
+{% if medicines %}
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {% for medicine in medicines %}
+      <div style="border: 1px solid #ccc; padding: 15px; border-radius: 10px; width: 220px;">
+        <h3>{{ medicine.name }}</h3>
+        <p>Price: ${{ "%.2f"|format(medicine.price) }}</p>
+        <p>{{ medicine.description or 'No description' }}</p>
+
+        <form action="{{ url_for('add_to_cart', medicine_id=medicine.id) }}" method="POST">
+          <label for="qty_{{ medicine.id }}">Quantity:</label>
+          <input id="qty_{{ medicine.id }}" type="number" name="quantity" value="1" min="1" required style="width: 60px;">
+          <button type="submit" style="margin-top: 10px;">Add to Cart</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No medicines available.</p>
+{% endif %}
+
+{% endblock %}
