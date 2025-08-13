@@ -379,6 +379,18 @@ def admin_dashboard():
                            contact_messages=contact_messages,
                            doctors=doctors,  # pass doctors to template
                            admin_email=session['admin_email'])
+    
+    
+
+
+@app.route('//doctors_page')
+def doctors_page():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM doctors")
+    doctors = cursor.fetchall()
+    cursor.close()
+    return render_template('doctors_page.html', doctors=doctors)
+
 
 
 
