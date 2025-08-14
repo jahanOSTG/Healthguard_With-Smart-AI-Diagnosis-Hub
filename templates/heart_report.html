@@ -1,0 +1,33 @@
+{% extends 'app.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/heart.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="report-wrapper">
+  <h2>🫀 Heart Disease Prediction Report</h2>
+
+  <ul>
+    <li><strong>Age:</strong> {{ data.age }}</li>
+    <li><strong>Sex:</strong> {{ data.sex }}</li>
+    <li><strong>Chest Pain Type:</strong> {{ data.cp }}</li>
+    <li><strong>Resting BP:</strong> {{ data.trestbps }}</li>
+    <li><strong>Cholesterol:</strong> {{ data.chol }}</li>
+    <li><strong>Fasting Blood Sugar:</strong> {{ data.fbs }}</li>
+    <li><strong>Rest ECG:</strong> {{ data.restecg }}</li>
+    <li><strong>Max Heart Rate Achieved:</strong> {{ data.thalach }}</li>
+    <li><strong>Exercise Induced Angina:</strong> {{ data.exang }}</li>
+    <li><strong>Oldpeak:</strong> {{ data.oldpeak }}</li>
+    <li><strong>Slope:</strong> {{ data.slope }}</li>
+    <li><strong>Ca:</strong> {{ data.ca }}</li>
+    <li><strong>Thal:</strong> {{ data.thal }}</li>
+  </ul>
+
+  <h3>✅ Result: {{ data.result }}</h3>
+
+  <a href="/heart" class="btn-submit" style="margin-top:20px; display:inline-block;">🔙 Predict Again</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'app.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/heart.css') }}">
+<style>
+  body {
+      background: 
+    url('/static/img/ee.jpg') no-repeat center center fixed;
+  background-size: cover;
+  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+    position: relative;
+    overflow: hidden;
+    color: #333;
+  }
+
+  .heart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 50%;
+    min-height: 500vh;
+    padding: 20px;
+  }
+
+  .form-wrapper, .report-section {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    width: 900%;
+    max-width: 600px; /* wider for 2-column */
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #084396;
+    font-weight: 700;
+  }
+
+  /* Two-column layout */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px 30px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .input-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .input-group input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background: rgba(255,255,255,0.85);
+    transition: border-color 0.3s ease;
+  }
+
+  .input-group input:focus {
+    border-color: #1d3557;
+    outline: none;
+    box-shadow: 0 0 6px rgba(29, 53, 87, 0.6);
+  }
+
+  .btn-submit {
+    grid-column: span 2; /* button takes full row */
+    background-color: #1d3557;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(29,53,87,0.5);
+  }
+
+  .btn-submit:hover {
+    background-color: #457b9d;
+    box-shadow: 0 6px 12px rgba(29,53,87,0.7);
+  }
+
+  .result-message {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #e63946;
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="heart-container">
+
+  {% if prediction_text %}
+  <div class="report-section">
+    <h3>📋 Your Heart Report</h3>
+    <form method="POST" action="/show_heart_report">
+      {% for field in ['age','sex','cp','trestbps','chol','fbs','restecg','thalach','exang','oldpeak','slope','ca','thal'] %}
+        <input type="hidden" name="{{ field }}" value="{{ request_form[field] }}">
+      {% endfor %}
+      <input type="hidden" name="result" value="{{ prediction_text }}">
+      <button type="submit" class="btn-submit">Show Report</button>
+    </form>
+  </div>
+  {% endif %}
+
+  <div class="form-wrapper">
+    <h2>🫀 Heart Disease Prediction Form</h2>
+    <form method="POST" action="/predict_heart" class="form-grid">
+
+      <div class="input-group"><label>Age</label><input type="number" name="age" required min="1" max="120" placeholder="e.g. 55"></div>
+      <div class="input-group"><label>Sex (1=Male, 0=Female)</label><input type="number" name="sex" required min="0" max="1" placeholder="e.g. 1"></div>
+      <div class="input-group"><label>Chest Pain Type (0-3)</label><input type="number" name="cp" required min="0" max="3" placeholder="e.g. 2"></div>
+      <div class="input-group"><label>Resting BP</label><input type="number" name="trestbps" required min="0" max="250" placeholder="e.g. 130"></div>
+      <div class="input-group"><label>Cholesterol</label><input type="number" name="chol" required min="0" max="600" placeholder="e.g. 250"></div>
+      <div class="input-group"><label>Fasting Blood Sugar >120 mg/dl (1=yes, 0=no)</label><input type="number" name="fbs" required min="0" max="1" placeholder="e.g. 0"></div>
+      <div class="input-group"><label>Rest ECG (0-2)</label><input type="number" name="restecg" required min="0" max="2" placeholder="e.g. 1"></div>
+      <div class="input-group"><label>Max Heart Rate Achieved</label><input type="number" name="thalach" required min="50" max="250" placeholder="e.g. 150"></div>
+      <div class="input-group"><label>Exercise Induced Angina (1=yes,0=no)</label><input type="number" name="exang" required min="0" max="1" placeholder="e.g. 0"></div>
+      <div class="input-group"><label>Oldpeak</label><input type="number" step="0.1" name="oldpeak" required min="0" max="10" placeholder="e.g. 1.5"></div>
+      <div class="input-group"><label>Slope (0-2)</label><input type="number" name="slope" required min="0" max="2" placeholder="e.g. 1"></div>
+      <div class="input-group"><label>Ca (0-4)</label><input type="number" name="ca" required min="0" max="4" placeholder="e.g. 0"></div>
+      <div class="input-group"><label>Thal (1=Normal,2=Fixed defect,3=Reversible defect)</label><input type="number" name="thal" required min="1" max="3" placeholder="e.g. 2"></div>
+
+      <button type="submit" class="btn-submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="result-message">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
