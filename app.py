@@ -24,6 +24,7 @@ app.secret_key = 'your_secret_key_here'  # Replace with your own strong key
 mysql = MySQL(app)
 
 # ---------------- Register Form ---------------- #
+
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
@@ -407,6 +408,7 @@ def admin_logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
