@@ -8,7 +8,13 @@ from flask_mysqldb import MySQL
 import os
 
 from flask_mysqldb import MySQL
+
+from ml_heart_model import predict_heart
 from ml_diabetic_model import predict_diabetes
+
+
+
+
 import MySQLdb.cursors
 
 
@@ -24,7 +30,6 @@ app.secret_key = 'your_secret_key_here'  # Replace with your own strong key
 mysql = MySQL(app)
 
 # ---------------- Register Form ---------------- #
-
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
@@ -189,6 +194,65 @@ def show_diabetes_report():
         'result': request.form['result']
     }
     return render_template('diabetes_report.html', data=input_data)
+
+
+
+# 1️⃣ Route to show heart disease form
+@app.route('/heart')
+def heart():
+    return render_template('heart.html')
+
+
+
+
+
+# 3️⃣ Route to show heart disease report
+@app.route('/predict_heart', methods=['POST'])
+def predict_heart_report():
+    # Extract form data
+    input_data = [
+        float(request.form['age']),
+        float(request.form['sex']),
+        float(request.form['cp']),
+        float(request.form['trestbps']),
+        float(request.form['chol']),
+        float(request.form['fbs']),
+        float(request.form['restecg']),
+        float(request.form['thalach']),
+        float(request.form['exang']),
+        float(request.form['oldpeak']),
+        float(request.form['slope']),
+        float(request.form['ca']),
+        float(request.form['thal'])
+    ]
+
+    # Make prediction
+    prediction = predict_heart(input_data)
+    result_text = "The person has Heart Disease" if prediction == 1 else "The person is Healthy"
+
+    # Prepare data for the report template
+    report_data = {
+        'age': request.form['age'],
+        'sex': request.form['sex'],
+        'cp': request.form['cp'],
+        'trestbps': request.form['trestbps'],
+        'chol': request.form['chol'],
+        'fbs': request.form['fbs'],
+        'restecg': request.form['restecg'],
+        'thalach': request.form['thalach'],
+        'exang': request.form['exang'],
+        'oldpeak': request.form['oldpeak'],
+        'slope': request.form['slope'],
+        'ca': request.form['ca'],
+        'thal': request.form['thal'],
+        'result': result_text
+    }
+
+    # Render the heart report directly
+    return render_template('heart_report.html', data=report_data)
+
+
+
 
 
 
@@ -408,7 +472,6 @@ def admin_logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
 
