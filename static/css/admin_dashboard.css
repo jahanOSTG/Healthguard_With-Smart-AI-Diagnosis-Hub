@@ -165,4 +165,113 @@ table tbody tr:hover {
     padding: 10px 8px;
     font-size: 0.9rem;
   }
+/* Power BI Section */
+#powerbi {
+  background-color: #f9f9fb;
+  border-radius: 12px;
+  padding: 25px 30px;
+  margin-top: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+#powerbi h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  border-left: 5px solid #4a90e2;
+  padding-left: 12px;
+  font-weight: 700;
+}
+
+.powerbi-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.powerbi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.powerbi-card h4 {
+  font-size: 1.3rem;
+  color: #34495e;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.powerbi-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.powerbi-pdf {
+  width: 100%;
+  height: 650px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.powerbi-pdf:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transform: scale(1.01);
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+  #powerbi {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .powerbi-card {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .powerbi-card h4 {
+    font-size: 1.2rem;
+  }
+
+  .powerbi-card p {
+    font-size: 0.9rem;
+  }
+
+  .powerbi-pdf {
+    height: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  #powerbi {
+    padding: 15px;
+  }
+
+  .powerbi-card {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .powerbi-card h4 {
+    font-size: 1.1rem;
+  }
+
+  .powerbi-card p {
+    font-size: 0.85rem;
+  }
+
+  .powerbi-pdf {
+    height: 400px;
+  }
+}
+
 }
