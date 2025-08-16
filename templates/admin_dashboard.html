@@ -13,6 +13,16 @@
     <a onclick="showSection('users')" id="link-users"><span class="icon">🧑</span> User List</a>
     <a onclick="showSection('donors')" id="link-donors"><span class="icon">💉</span> Donor List</a>
     <a onclick="showSection('contact_messages')" id="link-contact_messages"><span class="icon">💌</span> Contact List</a>
+      <a onclick="togglePowerBIMenu()" id="link-powerbi"><span class="icon">📊</span> Power BI</a>
+  <div id="powerbi-submenu" style="display:none; padding-left: 20px;">
+    <a onclick="loadPowerBIPDF('diabetic.pdf')">Diabetes</a>
+    <a onclick="loadPowerBIPDF('cancer.pdf')">Cancer</a>
+
+</div>
+
+
+
+
     <a href="{{ url_for('logout') }}"><span class="icon">🚪</span> Logout</a>
   </nav>
 
@@ -226,5 +236,31 @@
   }
 
   window.onload = () => showSection('admins'); // default
+
+
+  function togglePowerBIMenu() {
+  const submenu = document.getElementById('powerbi-submenu');
+  submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+}
+
+function loadPowerBIPDF(fileName) {
+  const iframe = document.getElementById('powerbi-frame');
+  iframe.src = "{{ url_for('static', filename='pdfs') }}/" + fileName;
+
+  // Show Power BI section
+  document.querySelectorAll('.list-section').forEach(s => s.style.display = 'none');
+  document.getElementById('powerbi').style.display = 'block';
+
+  // Highlight Power BI menu
+  document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
+  document.getElementById('link-powerbi').classList.add('active');
+}
 </script>
+
+<!-- Power BI Section -->
+<div id="powerbi" class="list-section" style="display:none;">
+  <h2>Power BI Dashboards</h2>
+  <iframe id="powerbi-frame" src="" class="powerbi-pdf" frameborder="0"></iframe>
+</div>
+
 {% endblock %}

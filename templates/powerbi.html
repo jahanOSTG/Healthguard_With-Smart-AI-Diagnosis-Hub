@@ -1,0 +1,22 @@
+<!-- Power BI PDFs Section -->
+<div id="powerbi" class="list-section" style="display:none;">
+  <h2>Power BI Dashboards (PDF)</h2>
+
+  <!-- Report 1 -->
+  <div class="powerbi-card">
+    <h4>Patient Statistics</h4>
+    <iframe src="{{ url_for('static', filename='pdfs/diabetic.pdf') }}" 
+            class="powerbi-pdf" frameborder="0"></iframe>
+    <p>Shows monthly patient visits and demographics.</p>
+  </div>
+
+  <!-- Report 2 -->
+  <div class="powerbi-card">
+    <h4>Appointment Analysis</h4>
+    <iframe src="{{ url_for('static', filename='pdfs/powerbi_appointments.pdf') }}" 
+            class="powerbi-pdf" frameborder="0"></iframe>
+    <p>Displays trends in appointments over the past year.</p>
+  </div>
+
+  <!-- Add more PDFs similarly -->
+</div>
