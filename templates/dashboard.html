@@ -9,76 +9,88 @@
 {% block content %}
 
 <!-- Navbar 1: Feature Links -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top" style="background: #ffffff;">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <i class="bi bi-hospital me-2"></i>
-      Luvia Medical Center
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+      <i class="bi bi-hospital me-2" style="color:#007bff; font-size:1.5rem;"></i>
+      <span style="font-size:1.2rem; color:#0d6efd;">Luvia Healthcare</span>
+      <span class="badge bg-info ms-2" style="font-size:0.7rem;">AI Powered</span>
     </a>
+
+    <!-- Toggler -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#featureNavbar" aria-controls="featureNavbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
+    <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="featureNavbar">
       <ul class="navbar-nav ms-auto align-items-center">
+
+        <!-- Appointments -->
         <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="{{ url_for('book_appointment') }}">
-            <i class="bi bi-calendar-check me-1"></i> Appointments
+          <a class="nav-link d-flex align-items-center position-relative" href="{{ url_for('book_appointment') }}">
+            <i class="bi bi-calendar-check me-1" style="color:#28a745;"></i> Appointments
+            <span class="badge bg-info ms-2" style="font-size:0.7rem; ">
+              New
+            </span>
           </a>
         </li>
 
-
+        <!-- Doctors -->
         <li class="nav-item">
-  <a class="nav-link d-flex align-items-center" href="{{ url_for('doctors_page') }}">
-    <i class="bi bi-person-badge me-1"></i> Doctors
-  </a>
-</li>
+          <a class="nav-link d-flex align-items-center" href="{{ url_for('doctors_page') }}">
+            <i class="bi bi-person-badge me-1" style="color:#6f42c1;"></i> Doctors
+          </a>
+        </li>
 
+        <!-- Services Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-briefcase-medical me-1" style="color:#fd7e14;"></i> Services
+          </a>
+          <ul class="dropdown-menu shadow-lg">
+            <li><a class="dropdown-item" href="{{ url_for('blood_bank') }}">Blood Bank 🩸</a></li>
+            <li><a class="dropdown-item" href="#">Pharmacy 💊</a></li>
+            <li><a class="dropdown-item" href="#">Emergency Care 🚨</a></li>
+            <li><a class="dropdown-item" href="#">Radiology 🩻</a></li>
+            <li><a class="dropdown-item" href="#">Laboratory 🔬</a></li>
+          </ul>
+        </li>
 
-       <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="bi bi-briefcase-medical me-1"></i> Services
-  </a>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="{{ url_for('blood_bank') }}">Blood Bank</a></li>
-    <li><a class="dropdown-item" href="#">Pharmacy</a></li>
-    <li><a class="dropdown-item" href="#">Emergency Care</a></li>
-    <li><a class="dropdown-item" href="#">Radiology</a></li>
-    <li><a class="dropdown-item" href="#">Laboratory</a></li>
-  </ul>
-</li>
-
-
+        <!-- Contact -->
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="{{ url_for('contact') }}">
-            <i class="bi bi-envelope me-1"></i> Contact
+            <i class="bi bi-envelope me-1" style="color:#17a2b8;"></i> Contact
           </a>
         </li>
 
+        <!-- Admin Panel -->
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="{{ url_for('admin_login') }}">
-            <i class="bi bi-speedometer2 me-1"></i> Admin Panel
+            <i class="bi bi-speedometer2 me-1" style="color:#dc3545;"></i> Admin Panel
           </a>
         </li>
 
+        <!-- Prediction Tools -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-bold d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-heart-fill me-1"></i> Prediction Tools
+          <a class="nav-link dropdown-toggle fw-bold text-danger d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-activity me-1"></i> AI Prediction Tools
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Cancer</a></li>
-            <li><a class="dropdown-item" href="/diabetes">Diabetes</a></li>
-            <li><a class="dropdown-item" href="/heart">Heart Disease</a></li>
-            <li><a class="dropdown-item" href="#">COVID-19</a></li>
+          <ul class="dropdown-menu shadow-lg">
+            <li><a class="dropdown-item" href="#">🧬 Cancer</a></li>
+            <li><a class="dropdown-item" href="/diabetes">🩸 Diabetes</a></li>
+            <li><a class="dropdown-item" href="/heart">❤️ Heart Disease</a></li>
+            <li><a class="dropdown-item" href="#">🦠 COVID-19</a></li>
           </ul>
         </li>
 
         <!-- Dark Mode Toggle -->
         <li class="nav-item">
-          <button id="darkModeToggle" class="btn btn-outline-secondary ms-3" title="Toggle Dark Mode">
-            <i class="bi bi-moon-fill"></i>
-          </button>
-        </li>
+  <button id="darkModeToggle" class="btn btn-outline-primary ms-3 rounded-circle p-2 shadow-sm" title="Toggle Dark Mode">
+    <i class="bi bi-moon-fill fs-5" id="darkModeIcon"></i>
+  </button>
+</li>
 
       </ul>
     </div>
@@ -117,7 +129,7 @@
 <section class="about-section">
   <div class="about-container">
     <div class="about-text">
-      <h2 class="section-title">About Luvia Medical Center</h2>
+      <h2 class="section-title" style="color: blue;">About Luvia Medical Center</h2>
       <p>
         At <strong>Luvia Medical Center</strong>, we blend compassion with cutting-edge medical technology to ensure every patient receives the best possible care.
         Our facility offers a full range of specialized units, including:
@@ -158,6 +170,117 @@
       </div>
     </div>
   </section>
+
+
+
+  <section class="doctors-intro-section py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-primary">👨‍⚕️ Our Expert Doctors</h2>
+    <p>
+      At <strong>Luvia Healthcare</strong>, we take pride in our team of highly skilled, compassionate, and dedicated medical professionals. 
+      Each doctor brings years of experience in their respective fields and is committed to providing personalized care for every patient. 
+      From advanced diagnostics to specialized treatments, our doctors ensure you receive world-class healthcare with a human touch.
+    </p>
+    <p>
+      Our team includes specialists in cardiology, neurology, pediatrics, oncology, and more. They continuously update their knowledge with the latest research and technologies to provide the best medical services.
+    </p>
+    <p>
+      Meet our doctors and explore their qualifications, experience, and areas of expertise. Book appointments directly through our online system for convenience and quick care.
+    </p>
+    
+    <div class="text-center mt-4">
+      <a href="{{ url_for('doctors_page') }}" class="btn btn-primary btn-lg">
+        👨‍⚕️ See Doctor List
+      </a>
+    </div>
+  </div>
+</section>
+
+
+  <section class="prediction-section py-5 bg-white">
+  <div class="container">
+    <h2 class="section-title text-primary">🧠 AI-Powered Disease Prediction</h2>
+    <p>Use our advanced machine learning models to assess your health risk and get preventive guidance instantly.</p>
+
+    <div class="row mt-4">
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+          <div class="card-body">
+            <i class="bi bi-heart-fill text-danger fs-2"></i>
+            <h5 class="card-title mt-2">Heart Disease</h5>
+            <p class="card-text">Check your heart risk with just a few inputs.</p>
+            <a href="/heart" class="btn btn-outline-danger btn-sm">Predict Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+          <div class="card-body">
+            <i class="bi bi-droplet text-warning fs-2"></i>
+            <h5 class="card-title mt-2">Diabetes</h5>
+            <p class="card-text">Get personalized diabetes risk assessment.</p>
+            <a href="/diabetes" class="btn btn-outline-warning btn-sm">Predict Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+          <div class="card-body">
+            <i class="bi bi-activity text-success fs-2"></i>
+            <h5 class="card-title mt-2">Cancer</h5>
+            <p class="card-text">Early detection predictions using ML models.</p>
+            <a href="#" class="btn btn-outline-success btn-sm">Predict Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm">
+          <div class="card-body">
+            <i class="bi bi-virus text-info fs-2"></i>
+            <h5 class="card-title mt-2">COVID-19</h5>
+            <p class="card-text">Predict your COVID-19 risk based on symptoms.</p>
+            <a href="#" class="btn btn-outline-info btn-sm">Predict Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section class="emergency-section py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-danger">🚨 Emergency Care</h2>
+    <p>Our emergency department is open 24/7 to provide critical care and life-saving support.</p>
+    
+    <div class="row mt-4">
+      <div class="col-md-4 mb-3">
+        <i class="bi bi-hospital-fill text-danger fs-2"></i>
+        <h5 class="mt-2">24/7 ER</h5>
+        <p>Fully staffed emergency room ready for any critical situation.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <i class="bi bi-activity text-danger fs-2"></i>
+        <h5 class="mt-2">Trauma & Critical Care</h5>
+        <p>Advanced trauma and critical care units for immediate treatment.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <i class="bi bi-ambulance text-danger fs-2"></i>
+        <h5 class="mt-2">Ambulance Service</h5>
+        <p>Rapid response ambulance & mobile ICU for emergencies.</p>
+      </div>
+    </div>
+
+    <a href="tel:+1234567890" class="btn btn-danger btn-lg mt-3">
+  📞 Call Emergency Now
+</a>
+
+  </div>
+</section>
+
 
   <!-- Health Tips -->
   <section class="tips-section">
