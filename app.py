@@ -470,6 +470,22 @@ def admin_logout():
 
 
 
+
+@app.route('/bed_charges')
+def bed_charges():
+    # Example data (you can replace with DB data later)
+    bed_charges = [
+        {"type": "General Ward", "quantity": 50, "price": 500},
+        {"type": "Cabin (Single)", "quantity": 20, "price": 1500},
+        {"type": "Cabin (Double)", "quantity": 30, "price": 1000},
+        {"type": "ICU", "quantity": 10, "price": 5000},
+        {"type": "CCU", "quantity": 8, "price": 4500},
+        {"type": "VIP Cabin", "quantity": 5, "price": 7000}
+    ]
+    return render_template('bed_charges.html', charges=bed_charges)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
