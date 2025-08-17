@@ -215,6 +215,8 @@
           </tr>
           {% endfor %}
         </tbody>
+
+
       </table>
     </div>
 
@@ -247,20 +249,29 @@ function loadPowerBIPDF(fileName) {
   const iframe = document.getElementById('powerbi-frame');
   iframe.src = "{{ url_for('static', filename='pdfs') }}/" + fileName;
 
-  // Show Power BI section
+  // Update title
+  const title = fileName.split('.')[0]; // e.g., "diabetic"
+  document.getElementById('powerbi-title').textContent = title.charAt(0).toUpperCase() + title.slice(1) + " Dashboard";
+
+  // Show Power BI section like other lists
   document.querySelectorAll('.list-section').forEach(s => s.style.display = 'none');
   document.getElementById('powerbi').style.display = 'block';
 
-  // Highlight Power BI menu
+  // Highlight sidebar
   document.querySelectorAll('.sidebar a').forEach(link => link.classList.remove('active'));
   document.getElementById('link-powerbi').classList.add('active');
 }
-</script>
 
-<!-- Power BI Section -->
-<div id="powerbi" class="list-section" style="display:none;">
-  <h2>Power BI Dashboards</h2>
-  <iframe id="powerbi-frame" src="" class="powerbi-pdf" frameborder="0"></iframe>
+</script>
+        <!-- Power BI Section -->
+<div id="powerbi" class="list-section">
+  <h2 id="powerbi-title">Power BI Dashboard</h2>
+  <div class="powerbi-container">
+    <iframe id="powerbi-frame" src="" frameborder="0"></iframe>
+  </div>
 </div>
+
+
+
 
 {% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'app.html' %}
+{% block extra_css %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bed_charges.css') }}">
+
+
+{% endblock %}
+
+{% block content %}
+
+<!-- bed_charges.html -->
+<div class="container my-5">
+  <h2 class="text-center mb-4" style="font-weight:700; color:white;">
+    🛏 Bed & Cabin Charges
+  </h2>
+<p class="text-center mb-4" style="font-size: 1rem; color: white;">
+  Comprehensive list of all hospital room types, availability, daily charges, and amenities.
+</p>
+
+
+  <div class="card shadow-lg p-4 border-0 rounded-4" style="background: #f9f9fb;">
+    <table class="table table-hover table-bordered align-middle text-center" style="border-radius:10px; overflow:hidden;">
+      <thead class="table-primary text-white">
+        <tr>
+          <th>🏥 Room Type</th>
+          <th>🛏 Quantity Available</th>
+          <th>💵 Price per Day</th>
+          <th>✨ Facilities</th>
+          <th>📝 Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>General Ward</td>
+          <td>30 Beds</td>
+          <td>৳ 500</td>
+          <td>Shared Room, Basic Amenities</td>
+          <td>Suitable for general patients</td>
+        </tr>
+        <tr>
+          <td>Cabin (Non-AC)</td>
+          <td>15 Rooms</td>
+          <td>৳ 1,200</td>
+          <td>Private Room, TV, Fan</td>
+          <td>Good for semi-private stay</td>
+        </tr>
+        <tr>
+          <td>Cabin (AC)</td>
+          <td>20 Rooms</td>
+          <td>৳ 2,000</td>
+          <td>Private Room, AC, TV, Attached Bathroom</td>
+          <td>Comfortable for long-term stay</td>
+        </tr>
+        <tr>
+          <td>ICU</td>
+          <td>10 Beds</td>
+          <td>৳ 5,000</td>
+          <td>Advanced Monitoring, Oxygen, Ventilator</td>
+          <td>Critical care patients only</td>
+        </tr>
+        <tr>
+          <td>CCU</td>
+          <td>8 Beds</td>
+          <td>৳ 6,000</td>
+          <td>Cardiac Monitoring, Specialist Care</td>
+          <td>For cardiac patients</td>
+        </tr>
+        <tr>
+          <td>VIP Suite</td>
+          <td>5 Rooms</td>
+          <td>৳ 10,000</td>
+          <td>Private Suite, AC, TV, Mini Fridge, Attached Bathroom</td>
+          <td>Luxury stay for VIP patients</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="text-muted mt-3" style="font-size:0.9rem;">
+      ⚠️ All charges are per day. Taxes and additional services may apply. For reservations and inquiries, please contact hospital administration.
+    </p>
+  </div>
+</div>
+{% endblock %}
