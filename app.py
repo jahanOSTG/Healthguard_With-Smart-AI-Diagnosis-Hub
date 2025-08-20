@@ -6,18 +6,10 @@ import bcrypt
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 import os
-
 from flask_mysqldb import MySQL
-
 from ml_heart_model import predict_heart
 from ml_diabetic_model import predict_diabetes
-
-
-
-
 import MySQLdb.cursors
-
-
 app = Flask(__name__)
 
 # MySQL Config
@@ -30,7 +22,6 @@ app.secret_key = 'your_secret_key_here'  # Replace with your own strong key
 mysql = MySQL(app)
 
 # ---------------- Register Form ---------------- #
-
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email", validators=[DataRequired(), Email()])
@@ -202,11 +193,6 @@ def show_diabetes_report():
 @app.route('/heart')
 def heart():
     return render_template('heart.html')
-
-
-
-
-
 # 3️⃣ Route to show heart disease report
 @app.route('/predict_heart', methods=['POST'])
 def predict_heart_report():
@@ -226,8 +212,7 @@ def predict_heart_report():
         float(request.form['ca']),
         float(request.form['thal'])
     ]
-
-    # Make prediction
+     # Make prediction
     prediction = predict_heart(input_data)
     result_text = "The person has Heart Disease" if prediction == 1 else "The person is Healthy"
 
@@ -332,9 +317,6 @@ def donors():
     cursor.close()
 
     return render_template('donors.html', donors=donor_list)
-
-
-
 
 @app.route('/blood-groups')
 def blood_groups():
@@ -489,7 +471,6 @@ def bed_charges():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 
 
