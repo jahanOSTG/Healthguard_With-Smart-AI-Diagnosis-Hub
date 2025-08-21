@@ -1,4 +1,4 @@
-# Health Center wuth AI Powered
+# Health Center with AI Powered
 
 ## Overview
 This project is a **Flask-based platform for patients, donors, and doctors**, integrating hospital management into a unified solution.  
