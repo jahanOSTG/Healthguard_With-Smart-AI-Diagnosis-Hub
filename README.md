@@ -1,4 +1,4 @@
-# Janie Medical Center – Hospital Management Platform
+# Health Center wuth AI Powered
 
 ## Overview
 This project is a **Flask-based platform for patients, donors, and doctors**, integrating hospital management into a unified solution.  
